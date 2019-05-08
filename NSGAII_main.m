@@ -3,7 +3,9 @@ clear;
 close all;
 profile on
 %% 设置测试函数
-problem=set_problem(6);%1=ZDT1;	2=ZDT2;	3=ZDT3;	4=ZDT4; 5=ZDT6;	6=SCH1;
+addpath('test_function');%将测试函数文件夹添加到搜索路径中
+problem=set_problem(7);%1=ZDT1;	2=ZDT2;	3=ZDT3;	4=ZDT4; 5=ZDT6;	6=SCH1;
+%7=SCH2;
 
 %% 遗传算法参数
 GAParameters.popsize=100;
@@ -46,4 +48,7 @@ end
 %% 绘制结果
 legend('ParetoFront-NSGAII','ParetoFront-real');%添加标签
 title(problem.name);%添加标题
+rmpath('test_function');%将测试函数文件夹从搜索路径中删除
+cd('test_function_result_plot')
+savefig(problem.name);%保存绘制的图像
 profile viewer
