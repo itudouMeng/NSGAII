@@ -4,8 +4,8 @@ close all;
 profile on
 %% 设置测试函数
 addpath('test_function');%将测试函数文件夹添加到搜索路径中
-problem=set_problem(7);%1=ZDT1;	2=ZDT2;	3=ZDT3;	4=ZDT4; 5=ZDT6;	6=SCH1;
-%7=SCH2;
+problem=set_problem(12);%1=ZDT1;	2=ZDT2;	3=ZDT3;	4=ZDT4; 5=ZDT6;	6=SCH1;
+%7=SCH2;  8=FON;  9=KUR;	10=POL;	
 
 %% 遗传算法参数
 GAParameters.popsize=100;
@@ -22,7 +22,7 @@ while k<GAParameters.maxgen
 	[P,Front]=nondominate_sort(P,GAParameters.popsize);%非支配排序(nondominated sorting)
 	P=crowding_distance(P,Front);%计算拥挤度距离(crowding distance)
 	[P,Front]=sort_pop(P);%按照非支配优先级排序和拥挤度距离大小对种群进行排序
-	plot_front(P(Front{1}),problem,k+1)%绘制pareto前沿
+	plot_front(P(Front{1}),problem,k+1);%绘制pareto前沿
 	Q=tournament_select(P,GAParameters.popsize);%锦标赛选择
 		
 	%%遗传操作
@@ -46,7 +46,7 @@ while k<GAParameters.maxgen
 	k=k+1;%更新迭代次数
 end
 %% 绘制结果
-legend('ParetoFront-NSGAII','ParetoFront-real');%添加标签
+legend('ParetoFront-NSGAII','ParetoFront-real');%添加图例
 title(problem.name);%添加标题
 rmpath('test_function');%将测试函数文件夹从搜索路径中删除
 cd('test_function_result_plot')
